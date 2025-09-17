@@ -1,7 +1,0 @@
-{
-  "name": "AppDeTurno",
-  "integrations": {
-    "capacitor": {}
-  },
-  "type": "angular"
-}
