@@ -1,14 +1,9 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
-import {
-  IonContent,
-  IonInput,
-  IonItem,
-  IonLabel,
-  IonButton
-} from '@ionic/angular/standalone';
+import { Auth } from 'src/app/services/auth';
 
 @Component({
   selector: 'app-login',
@@ -19,25 +14,24 @@ import {
     CommonModule,
     FormsModule,
     RouterModule,
-    IonContent,
-    IonInput,
-    IonItem,
-    IonLabel,
-    IonButton
+    IonicModule  
   ]
 })
 export class LoginPage {
   email: string = '';
   password: string = '';
+  errorMessage = '';
 
-  constructor(private router: Router) {}
+  constructor(private auth: Auth, private router: Router) {}
 
-  login() {
-    if (!this.email || !this.password) {
-      alert('Por favor, complete los campos');
-      return;
+  async login() {
+    const { data, error } = await this.auth.login(this.email, this.password);
+
+    if (error) {
+      this.errorMessage = error.message;
+      console.error(error);
+    } else {
+      this.router.navigateByUrl('/tabs');
     }
-
-    this.router.navigateByUrl('/tabs');
   }
 }

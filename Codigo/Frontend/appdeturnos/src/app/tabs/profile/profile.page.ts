@@ -1,20 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
+import { Auth } from 'src/app/services/auth';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
-  templateUrl: './profile.page.html',
-  styleUrls: ['./profile.page.scss'],
-  standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule]
+  template: '', // nada que mostrar
 })
 export class ProfilePage implements OnInit {
+  constructor(private auth: Auth, private router: Router) {}
 
-  constructor() { }
-
-  ngOnInit() {
+  async ngOnInit() {
+    await this.auth.logout();
+    this.router.navigateByUrl('/login');
   }
-
 }

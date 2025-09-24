@@ -35,3 +35,22 @@
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import '@ionic/angular/css/palettes/dark.system.css';
+  /* ===========================
+     Tabs inferiores
+     =========================== */
+     ion-tab-bar {
+        --background: rgba(0, 0, 0, 0.3);
+        border: none;
+        -webkit-backdrop-filter: blur(6px);
+        backdrop-filter: blur(6px);
+      }
+      
+      ion-tab-button {
+        --color: #ccc;
+        --color-selected: #fff;
+      
+        ion-icon,
+        ion-label {
+          color: inherit !important;
+        }
+      }

@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+import { Auth } from 'src/app/services/auth';
+
+
 import {
   IonTabs,
   IonTabBar,
@@ -24,4 +27,12 @@ import {
     IonLabel
   ]
 })
-export class TabsPage {}
+
+export class TabsPage {
+  constructor(private auth: Auth, private router: Router) {}
+
+  async logoutDirect() {
+    await this.auth.logout();
+    this.router.navigateByUrl('/login');
+  }
+}

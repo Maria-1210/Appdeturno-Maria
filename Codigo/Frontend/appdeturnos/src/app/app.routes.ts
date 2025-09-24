@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 
- export const routes: Routes = [
+export const routes: Routes = [
   {
     path: '',
     redirectTo: 'login',
@@ -21,6 +21,14 @@ import { Routes } from '@angular/router';
       {
         path: 'health',
         loadComponent: () => import('./tabs/health/health.page').then(m => m.HealthPage)
+      },
+      {
+        path: 'capture',
+        loadComponent: () => import('./tabs/capture/capture.page').then(m => m.CapturePage)
+      },
+      {
+        path: 'stats',
+        loadComponent: () => import('./tabs/stats/stats.page').then(m => m.StatsPage)
       },
       {
         path: 'profile',
