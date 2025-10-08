@@ -20,7 +20,9 @@
     <ion-tab-button (click)="logoutDirect()" tab="profile">
       <img src="assets/img/log-out-outline.svg" alt="Logout" style="width: 24px; height: 24px;" />
     </ion-tab-button>
-    
+    <ion-tab-button tab="crud" [routerLink]="['/pages/crud']">
+      <img src="assets/img/create-outline.svg" alt="CRUD" style="width: 24px; height: 24px;" />
+    </ion-tab-button>
   </ion-tab-bar>
 </ion-tabs>
 
