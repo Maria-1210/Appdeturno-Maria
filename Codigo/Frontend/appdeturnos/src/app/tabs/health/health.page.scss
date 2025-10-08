@@ -1,0 +1,73 @@
+ion-content {
+  --background: #f9f9f9;
+}
+
+.titulo-turnos {
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 10px;
+
+  h2 {
+    color: #1e88e5;
+    font-weight: 700;
+    font-size: 22px;
+    margin-bottom: 4px;
+  }
+
+  p {
+    color: #555;
+    font-size: 15px;
+    margin: 0;
+  }
+}
+
+ion-card {
+  margin-top: 15px;
+  border-radius: 15px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+  background: #fff;
+
+  ion-card-header {
+    padding-bottom: 6px;
+  }
+
+  ion-card-title {
+    color: #222;
+    font-weight: 600;
+    font-size: 18px;
+  }
+
+  ion-card-subtitle {
+    color: #666;
+    font-size: 14px;
+  }
+
+  ion-card-content {
+    padding-top: 4px;
+  }
+
+  .estado {
+    font-size: 14px;
+    font-weight: 500;
+    margin-top: 6px;
+  }
+
+  .confirmado {
+    color: #2e7d32;
+  }
+
+  .pendiente {
+    color: #f9a825;
+  }
+}
+
+.nuevo-turno {
+  margin-top: 30px;
+
+  ion-button {
+    border-radius: 25px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+  }
+}

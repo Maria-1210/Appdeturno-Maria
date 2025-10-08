@@ -1,13 +1,45 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>health</ion-title>
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Mis Turnos</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">health</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content class="ion-padding">
+
+  <!-- Título -->
+  <div class="titulo-turnos">
+    <h2>📅 Turnos Reservados</h2>
+    <p>Consultá tus próximos turnos o agendá uno nuevo.</p>
+  </div>
+
+  <!-- Tarjeta de Turno 1 -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Corte de pelo</ion-card-title>
+      <ion-card-subtitle>12 de octubre, 15:00 hs</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <p class="estado confirmado">✅ Confirmado</p>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Tarjeta de Turno 2 -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Coloración</ion-card-title>
+      <ion-card-subtitle>18 de octubre, 17:30 hs</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <p class="estado pendiente">⏳ Pendiente de confirmación</p>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Botón de nuevo turno -->
+  <div class="nuevo-turno">
+    <ion-button expand="block" color="success">
+      <ion-icon slot="start" name="add-circle-outline"></ion-icon>
+      Reservar nuevo turno
+    </ion-button>
+  </div>
+
 </ion-content>
