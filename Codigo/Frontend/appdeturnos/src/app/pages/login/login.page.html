@@ -24,8 +24,8 @@
       <ion-button expand="block" class="login-button" (click)="login()">Ingresar</ion-button>
 
       <!-- Error -->
-      <ion-text color="danger" *ngIf="errorMessage">
-        <p>{{ errorMessage }}</p>
+      <ion-text *ngIf="errorMessage">
+        <p style="color: #821616; font-weight: 500;">{{ errorMessage }}</p>
       </ion-text>
 
       <!-- Footer -->
