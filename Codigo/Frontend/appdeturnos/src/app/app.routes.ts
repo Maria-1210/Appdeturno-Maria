@@ -39,10 +39,6 @@ export const routes: Routes = [
         redirectTo: 'home',
         pathMatch: 'full'
       },
-      {
-       path: 'crud',
-        loadComponent: () => import('./pages/crud/crud.page').then(m => m.CrudPage)
-      },
     ]
   }
 
