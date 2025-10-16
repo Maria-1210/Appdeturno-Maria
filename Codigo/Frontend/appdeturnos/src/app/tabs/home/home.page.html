@@ -74,8 +74,8 @@
         <p>{{ s.descripcion }}</p>
         <p>Precio: ${{ s.precio | number:'1.2-2' }} • Duración: {{ s.duracion_min }} min</p>
       </ion-label>
-      <ion-button fill="clear" color="mi-celeste-1" (click)="editarServicio(s)">Editar</ion-button>
-      <ion-button fill="clear" color="rojo-error" (click)="eliminarServicio(s.id_servicio)">Eliminar</ion-button>
+      <ion-button fill="clear" color="primary" (click)="editarServicio(s)">Editar</ion-button>
+      <ion-button fill="clear" color="success" (click)="eliminarServicio(s.id_servicio)">Eliminar</ion-button>
     </ion-item>
   </ion-list>
   

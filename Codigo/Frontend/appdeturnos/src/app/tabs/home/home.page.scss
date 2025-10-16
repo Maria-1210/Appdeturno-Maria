@@ -36,7 +36,7 @@ ion-card {
   margin: auto;
 
   /* 4. COLOR DE LA TARJETA: Gris oscuro semi-transparente como en el login */
-  --background: #2c4057; /* Gris oscuro casi opaco */
+  --background: #676f79; /* Gris oscuro casi opaco */
   
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5); 
 }
@@ -109,7 +109,7 @@ ion-list {
   /* La lista tiene el mismo fondo que el card para un diseño uniforme */
   --ion-background-color: #2c4057; 
   border-radius: 12px;
-  box-shadow: 0 2px 8px #2c4057;
+  box-shadow: 0 2px 8px #97a1ac;
   margin: 1.5rem auto; 
 }
 
