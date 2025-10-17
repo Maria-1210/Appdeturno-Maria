@@ -36,7 +36,7 @@ export const routes: Routes = [
       },
         {
         path: 'prestador',
-        loadChildren: () => import('./tabs/prestador/prestador.page').then(m => m.PrestadorPage)
+        loadComponent: () => import('./tabs/prestador/prestador.page').then(m => m.PrestadorPage)
       },
 
       {
