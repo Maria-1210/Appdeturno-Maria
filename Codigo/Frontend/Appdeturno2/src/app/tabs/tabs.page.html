@@ -16,10 +16,20 @@
     <ion-tab-button tab="stats" [routerLink]="['/tabs/stats']">
       <img src="assets/img/bar-chart-sharp.svg" alt="Logout" style="width: 24px; height: 24px;" /> 
     </ion-tab-button>
+    
+    <ion-tab-button tab="sucursal" [routerLink]="['/tabs/sucursal']">
+      <img src="assets/img/business-outline.svg" alt="Sucursal" style="width: 24px; height: 24px;" />
+    </ion-tab-button>
+
+   <ion-tab-button tab="prestador" [routerLink]="['/tabs/prestador']">
+     <img src="assets/img/people-outline.svg" alt="Prestadores" style="width: 24px; height: 24px;" />
+   </ion-tab-button>
+
  
     <ion-tab-button (click)="logoutDirect()" tab="profile">
       <img src="assets/img/log-out-outline.svg" alt="Logout" style="width: 24px; height: 24px;" />
     </ion-tab-button>
+    
     
   </ion-tab-bar>
 </ion-tabs>
