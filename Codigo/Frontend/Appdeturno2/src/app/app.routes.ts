@@ -27,8 +27,8 @@ export const routes: Routes = [
         loadComponent: () => import('./tabs/capture/capture.page').then(m => m.CapturePage)
       },
       {
-        path: 'stats',
-        loadComponent: () => import('./tabs/stats/stats.page').then(m => m.StatsPage)
+        path: 'agenda',
+        loadComponent: () => import('./tabs/agenda/agenda.page').then(m => m.AgendaPage)
       },
        {
         path: 'sucursal', // 👈 nueva tab agregada acá
@@ -55,5 +55,9 @@ export const routes: Routes = [
   {
     path: 'prestador',
     loadComponent: () => import('./tabs/prestador/prestador.page').then( m => m.PrestadorPage)
+  },
+  {
+    path: 'agenda',
+    loadComponent: () => import('./tabs/agenda/agenda.page').then( m => m.AgendaPage)
   },
 ];

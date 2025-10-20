@@ -1,8 +1,77 @@
-ion-card {
-    margin-bottom: 20px;
-  }
-  
-  ion-button {
-    margin-top: 20px;
-  }
-  
+.profile-background {
+  --background: linear-gradient(180deg, #1e2a3a 0%, #0f1722 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile-container {
+  text-align: center;
+  padding: 20px;
+}
+
+.profile-title {
+  color: #fff;
+  font-size: 26px;
+  font-weight: bold;
+  margin-bottom: 25px;
+}
+
+.avatar-section {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 3px solid #4cc9f0;
+  object-fit: cover;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+
+.avatar:hover {
+  transform: scale(1.05);
+}
+
+.avatar-picker {
+  margin-top: 15px;
+}
+
+.avatar-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+.avatar-option {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: border 0.3s;
+}
+
+.avatar-option.selected {
+  border: 2px solid #4cc9f0;
+}
+
+ion-item {
+  --background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  margin-bottom: 10px;
+  color: white;
+}
+
+ion-label {
+  color: #4cc9f0;
+}
+
+ion-input {
+  color: white;
+}

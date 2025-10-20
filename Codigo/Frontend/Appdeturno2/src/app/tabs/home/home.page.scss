@@ -1,41 +1,43 @@
-ion-content {
-  --background: #f2f4f8; /* gris muy suave de fondo */
+.home-background {
+  --background: linear-gradient(180deg, #1e2a3a 0%, #0f1722 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-/* Corrige la superposición de los labels */
-ion-item {
-  margin-bottom: 16px;
-  --highlight-color-focused: #3880ff; /* color del borde inferior al enfocar */
-  --min-height: 70px; /* evita que el texto se encime */
-  --background: #fff; /* fondo blanco */
-  border-radius: 8px;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+.home-container {
+  text-align: center;
+  padding: 20px;
 }
 
-/* Ajusta el comportamiento del label flotante */
-ion-label {
-  color: #666;
-  font-size: 14px;
-}
-
-/* Hace visibles los campos */
-ion-input {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  font-size: 15px;
-  color: #222;
-}
-
-/* Botón principal */
-ion-button {
-  margin-top: 16px;
+.home-title {
+  color: #fff;
+  font-size: 26px;
   font-weight: bold;
+  margin-bottom: 20px;
 }
 
-/* Card general */
-ion-card {
-  margin: 16px auto;
-  max-width: 480px;
-  border-radius: 12px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+.service-card {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  text-align: center;
+  transition: 0.3s;
+  padding: 20px;
+}
+
+.service-card:hover {
+  transform: scale(1.05);
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.service-icon {
+  font-size: 40px;
+  color: #4cc9f0;
+  margin-bottom: 10px;
+}
+
+.service-name {
+  color: #fff;
+  font-size: 16px;
+  font-weight: 500;
 }

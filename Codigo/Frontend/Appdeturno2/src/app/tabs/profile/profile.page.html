@@ -1,0 +1,37 @@
+<ion-content class="profile-background">
+  <div class="profile-container">
+
+    <h1 class="profile-title">Mi Perfil</h1>
+
+    <div class="avatar-section">
+      <img [src]="selectedAvatar" alt="Avatar" class="avatar" (click)="toggleAvatarSelection()" />
+    </div>
+
+    <div class="avatar-picker" *ngIf="showAvatarPicker">
+      <div class="avatar-grid">
+        <img *ngFor="let avatar of avatars"
+             [src]="avatar"
+             class="avatar-option"
+             [class.selected]="avatar === selectedAvatar"
+             (click)="selectAvatar(avatar)" />
+      </div>
+      <ion-button expand="block" color="primary" (click)="toggleAvatarSelection()">Cerrar</ion-button>
+    </div>
+
+    <ion-list *ngIf="!showAvatarPicker">
+      <ion-item>
+        <ion-label position="stacked">Nombre</ion-label>
+        <ion-input [(ngModel)]="nombre_usuario"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Correo electrónico</ion-label>
+        <ion-input [(ngModel)]="email"></ion-input>
+      </ion-item>
+
+      <ion-button expand="block" color="success" (click)="guardarCambios()">Guardar cambios</ion-button>
+      <ion-button expand="block" fill="outline" color="medium" (click)="logout()">Cerrar sesión</ion-button>
+    </ion-list>
+
+  </div>
+</ion-content>
