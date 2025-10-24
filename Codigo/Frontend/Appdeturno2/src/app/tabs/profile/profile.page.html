@@ -1,37 +1,91 @@
-<ion-content class="profile-background">
-  <div class="profile-container">
-
-    <h1 class="profile-title">Mi Perfil</h1>
-
-    <div class="avatar-section">
-      <img [src]="selectedAvatar" alt="Avatar" class="avatar" (click)="toggleAvatarSelection()" />
-    </div>
-
-    <div class="avatar-picker" *ngIf="showAvatarPicker">
-      <div class="avatar-grid">
-        <img *ngFor="let avatar of avatars"
-             [src]="avatar"
-             class="avatar-option"
-             [class.selected]="avatar === selectedAvatar"
-             (click)="selectAvatar(avatar)" />
+<ion-content class="profile-container">
+  <div class="profile-wrapper">
+    <div class="profile-card">
+      <div class="profile-header">
+        <h2>Mi Perfil</h2>
       </div>
-      <ion-button expand="block" color="primary" (click)="toggleAvatarSelection()">Cerrar</ion-button>
+
+      <div class="avatar-section">
+        <div class="avatar-wrapper" (click)="editarActivo && toggleAvatarMenu()">
+          <img [src]="selectedAvatarPath" alt="Avatar" class="avatar-img" />
+        </div>
+
+        <div class="avatar-menu" *ngIf="showAvatarMenu && editarActivo">
+          <div
+            *ngFor="let avatar of avatars"
+            class="avatar-option"
+            (click)="selectAvatar(avatar)"
+          >
+            <img [src]="avatar.path" [alt]="avatar.name" />
+          </div>
+        </div>
+      </div>
+
+      <div class="profile-info">
+        <ion-item lines="none">
+          <ion-label position="stacked">Nombre de Usuario</ion-label>
+          <ion-input
+            [(ngModel)]="nombre_usuario"
+            [readonly]="!editarActivo"
+            placeholder="Tu nombre de usuario"
+          ></ion-input>
+        </ion-item>
+
+        <ion-item lines="none">
+          <ion-label position="stacked">Email</ion-label>
+          <ion-input [(ngModel)]="email" readonly></ion-input>
+        </ion-item>
+
+        <ion-item lines="none">
+          <ion-label position="stacked">DNI</ion-label>
+          <ion-input
+            [(ngModel)]="dni"
+            [readonly]="!editarActivo"
+            type="number"
+            maxlength="8"
+            pattern="[0-9]*"
+            placeholder="Solo números (sin puntos)"
+          ></ion-input>
+          <ion-note color="danger" *ngIf="dniError && editarActivo">
+            ⚠️ El DNI debe tener 7 u 8 números sin puntos
+          </ion-note>
+        </ion-item>
+
+        <ion-item lines="none">
+          <ion-label position="stacked">Ubicación</ion-label>
+          <ion-input
+            [(ngModel)]="ubicacion"
+            [readonly]="!editarActivo"
+            placeholder="Ciudad o zona"
+          ></ion-input>
+        </ion-item>
+      </div>
+
+      <div class="button-group">
+        <ion-button
+          *ngIf="!editarActivo"
+          expand="block"
+          color="primary"
+          (click)="editarPerfil()"
+          class="action-btn"
+        >
+          Editar Perfil
+        </ion-button>
+
+        <div *ngIf="editarActivo" class="edit-buttons">
+          <ion-button color="success" (click)="guardarCambios()">Guardar</ion-button>
+          <ion-button color="medium" (click)="cancelarEdicion()">Cancelar</ion-button>
+        </div>
+
+        <ion-button
+          expand="block"
+          color="danger"
+          (click)="logout()"
+          class="logout-btn"
+        >
+          Cerrar Sesión
+        </ion-button>
+      </div>
     </div>
-
-    <ion-list *ngIf="!showAvatarPicker">
-      <ion-item>
-        <ion-label position="stacked">Nombre</ion-label>
-        <ion-input [(ngModel)]="nombre_usuario"></ion-input>
-      </ion-item>
-
-      <ion-item>
-        <ion-label position="stacked">Correo electrónico</ion-label>
-        <ion-input [(ngModel)]="email"></ion-input>
-      </ion-item>
-
-      <ion-button expand="block" color="success" (click)="guardarCambios()">Guardar cambios</ion-button>
-      <ion-button expand="block" fill="outline" color="medium" (click)="logout()">Cerrar sesión</ion-button>
-    </ion-list>
-
   </div>
 </ion-content>

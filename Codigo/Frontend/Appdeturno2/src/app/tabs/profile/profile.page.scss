@@ -1,77 +1,187 @@
-.profile-background {
-  --background: linear-gradient(180deg, #1e2a3a 0%, #0f1722 100%);
+.profile-container {
+  --background: linear-gradient(135deg, #1e3c72, #2a5298);
+  height: 100%;
+}
+
+/* El contenedor interno se centra vertical y horizontalmente */
+.profile-wrapper {
   display: flex;
+  align-items: center;
   justify-content: center;
+  min-height: 100vh; /* asegura que ocupe toda la pantalla */
+}
+
+/* Tarjeta principal */
+.profile-card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(8px);
+  padding: 2rem 1.5rem;
+  border-radius: 20px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+  width: 90%;
+  max-width: 420px;
+  color: #fff;
+  text-align: center;
+  animation: fadeIn 0.6s ease-in-out;
+  display: flex;
+  flex-direction: column;
   align-items: center;
 }
 
-.profile-container {
-  text-align: center;
-  padding: 20px;
+/* Encabezado */
+.profile-header {
+  margin-bottom: 1.5rem;
+
+  h2 {
+    font-size: 1.8rem;
+    color: #ffffff;
+    font-weight: 600;
+  }
 }
 
-.profile-title {
-  color: #fff;
-  font-size: 26px;
-  font-weight: bold;
-  margin-bottom: 25px;
-}
-
+/* Avatar */
 .avatar-section {
   display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 1.2rem;
 }
 
-.avatar {
-  width: 120px;
-  height: 120px;
+.avatar-wrapper {
+  width: 110px;
+  height: 110px;
   border-radius: 50%;
-  border: 3px solid #4cc9f0;
-  object-fit: cover;
+  overflow: hidden;
+  border: 3px solid #5aa0ff;
+  background-color: #fff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
   cursor: pointer;
-  transition: transform 0.3s;
+  transition: transform 0.2s ease-in-out;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 }
 
-.avatar:hover {
-  transform: scale(1.05);
-}
-
-.avatar-picker {
-  margin-top: 15px;
-}
-
-.avatar-grid {
+/* Menú de avatares */
+.avatar-menu {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 10px;
-}
-
-.avatar-option {
-  width: 70px;
-  height: 70px;
-  border-radius: 50%;
-  cursor: pointer;
-  border: 2px solid transparent;
-  transition: border 0.3s;
-}
-
-.avatar-option.selected {
-  border: 2px solid #4cc9f0;
-}
-
-ion-item {
-  --background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.95);
   border-radius: 10px;
-  margin-bottom: 10px;
-  color: white;
+  padding: 10px;
+  margin-top: 10px;
+  animation: fadeIn 0.3s ease;
+
+  .avatar-option {
+    width: 60px;
+    height: 60px;
+    margin: 5px;
+    border-radius: 50%;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
 }
 
-ion-label {
-  color: #4cc9f0;
+/* Información del perfil */
+.profile-info {
+  margin-bottom: 1.5rem;
+  width: 100%;
+
+  ion-item {
+    --background: transparent;
+    --color: #ffffff;
+    color: #fff;
+    text-align: left;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    margin-bottom: 10px;
+
+    ion-label {
+      color: #d0d0d0;
+      font-weight: 500;
+    }
+
+    ion-input {
+      color: #ffffff;
+      font-weight: 600;
+    }
+  }
 }
 
-ion-input {
-  color: white;
+/* Botones */
+.button-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+}
+
+.edit-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+
+  ion-button {
+    width: 45%;
+    border-radius: 10px;
+    font-weight: 600;
+    transition: transform 0.15s ease-in-out;
+
+    &:hover {
+      transform: translateY(-2px);
+    }
+  }
+}
+
+.action-btn {
+  width: 70%;
+  border-radius: 10px;
+  font-weight: 600;
+}
+
+.logout-btn {
+  width: 70%;
+  background: #e74c3c;
+  border-radius: 10px;
+  font-weight: 600;
+
+  &:hover {
+    background-color: #c0392b;
+  }
+}
+
+ion-note[color='danger'] {
+  font-size: 0.85rem;
+  margin-top: 4px;
+}
+
+/* Animación */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

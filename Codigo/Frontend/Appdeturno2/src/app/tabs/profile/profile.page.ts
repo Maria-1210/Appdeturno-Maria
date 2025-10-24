@@ -1,98 +1,132 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicModule } from '@ionic/angular';
+import { IonicModule, ToastController } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { supabase } from 'src/app/supabase';
+import { supabase } from '../../supabase';
 import { Router } from '@angular/router';
+import { SupabaseClient } from '@supabase/supabase-js';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.page.html',
   styleUrls: ['./profile.page.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule, FormsModule],
+  imports: [CommonModule, IonicModule, FormsModule],
 })
 export class ProfilePage implements OnInit {
+  private supabase: SupabaseClient = supabase;
 
   nombre_usuario: string = '';
   email: string = '';
-  selectedAvatar: string = 'assets/avatars/default.png';
-  showAvatarPicker: boolean = false;
+  ubicacion: string = '';
+  dni: string = '';
+  editarActivo = false;
+  dniError: boolean = false;
 
-  avatars: string[] = [
-    'assets/avatars/avatar1.png',
-    'assets/avatars/avatar2.png',
-    'assets/avatars/avatar3.png',
-    'assets/avatars/avatar4.png',
+  showAvatarMenu = false;
+  selectedAvatarPath = 'assets/img/Avatars/avatar-default.svg';
+  avatars = [
+    { name: 'Avatar 1', path: 'assets/img/Avatars/Avatar1.svg' },
+    { name: 'Avatar 2', path: 'assets/img/Avatars/Avatar2.svg' },
+    { name: 'Avatar 3', path: 'assets/img/Avatars/Avatar3.svg' },
   ];
 
   userId: string | null = null;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private toastCtrl: ToastController) {}
 
   async ngOnInit() {
-    await this.loadUserData();
-  }
+    try {
+      const { data, error } = await this.supabase.auth.getUser();
+      if (error) throw error;
 
-  async loadUserData() {
-    const { data: { user } } = await supabase.auth.getUser();
+      if (data?.user) {
+        this.userId = data.user.id;
+        this.email = data.user.email ?? '';
 
-    if (!user) {
-      this.router.navigate(['/login']);
-      return;
-    }
+        const { data: perfil, error: errPerfil } = await this.supabase
+          .from('usuario')
+          .select('*')
+          .eq('user_id', this.userId)
+          .single();
 
-    this.userId = user.id;
-
-    const { data, error } = await supabase
-      .from('usuario')
-      .select('*')
-      .eq('user_id', user.id)
-      .single();
-
-    if (error) {
-      console.error('Error cargando perfil:', error);
-      return;
-    }
-
-    this.nombre_usuario = data?.nombre_usuario || '';
-    this.email = data?.email || '';
-    if (data?.avatar_url) {
-      this.selectedAvatar = data.avatar_url;
+        if (errPerfil) {
+          console.warn('No se encontró perfil en tabla usuario:', errPerfil.message);
+        } else {
+          this.nombre_usuario = perfil.nombre_usuario ?? '';
+          this.ubicacion = perfil.ubicacion ?? '';
+          this.dni = perfil.dni ?? '';
+        }
+      }
+    } catch (error) {
+      console.error('Error al obtener el usuario:', error);
     }
   }
 
-  toggleAvatarSelection() {
-    this.showAvatarPicker = !this.showAvatarPicker;
+  editarPerfil() {
+    this.editarActivo = true;
   }
 
-  selectAvatar(avatar: string) {
-    this.selectedAvatar = avatar;
+  cancelarEdicion() {
+    this.editarActivo = false;
+  }
+
+  async mostrarToast(mensaje: string, color: string = 'success') {
+    const toast = await this.toastCtrl.create({
+      message: mensaje,
+      duration: 2000,
+      color,
+    });
+    await toast.present();
   }
 
   async guardarCambios() {
-    if (!this.userId) return;
+    try {
+      if (!this.userId) throw new Error('Usuario no identificado');
 
-    const { error } = await supabase
-      .from('usuario')
-      .update({
-        nombre_usuario: this.nombre_usuario,
-        email: this.email,
-        avatar_url: this.selectedAvatar,
-        updated_at: new Date().toISOString(),
-      })
-      .eq('user_id', this.userId);
+      // ✅ Validar formato solo si el usuario ingresó algo
+      if (this.dni && !/^[0-9]{7,8}$/.test(this.dni)) {
+        this.dniError = true;
+        await this.mostrarToast('El DNI debe tener 7 u 8 números sin puntos 🪪', 'warning');
+        return;
+      } else {
+        this.dniError = false;
+      }
 
-    if (error) {
-      console.error('Error guardando perfil:', error);
-      alert('No se pudieron guardar los cambios.');
-    } else {
-      alert('Perfil actualizado correctamente.');
+      const { error } = await this.supabase
+        .from('usuario')
+        .update({
+          nombre_usuario: this.nombre_usuario,
+          ubicacion: this.ubicacion,
+          dni: this.dni || null,
+        })
+        .eq('user_id', this.userId);
+
+      if (error) throw error;
+
+      this.editarActivo = false;
+      await this.mostrarToast('Perfil actualizado correctamente ✅');
+    } catch (error) {
+      console.error('Error al actualizar perfil:', error);
+      await this.mostrarToast('Error al guardar cambios ❌', 'danger');
     }
   }
 
+  toggleAvatarMenu() {
+    this.showAvatarMenu = !this.showAvatarMenu;
+  }
+
+  selectAvatar(avatar: any) {
+    this.selectedAvatarPath = avatar.path;
+    this.showAvatarMenu = false;
+  }
+
   async logout() {
-    await supabase.auth.signOut();
-    this.router.navigate(['/login']);
+    try {
+      await this.supabase.auth.signOut();
+      this.router.navigate(['/login']);
+    } catch (error) {
+      console.error('Error al cerrar sesión:', error);
+    }
   }
 }

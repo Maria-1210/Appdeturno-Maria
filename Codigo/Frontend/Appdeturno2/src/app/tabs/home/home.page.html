@@ -6,6 +6,7 @@
       <ion-row>
         <ion-col size="6" *ngFor="let servicio of servicios">
           <ion-card button class="service-card" (click)="goTo(servicio.route)">
+           <img [src]="servicio.imagen" alt="{{ servicio.nombre }}" class="service-image">
             <ion-card-content>
               <ion-icon [name]="servicio.icon" class="service-icon"></ion-icon>
               <p class="service-name">{{ servicio.nombre }}</p>
