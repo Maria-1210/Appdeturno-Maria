@@ -1,17 +1,17 @@
 .profile-container {
-  --background: linear-gradient(135deg, #1e3c72, #2a5298);
+  --background: linear-gradient(135deg, #1e2a3a, #1e2a3a);
   height: 100%;
 }
 
-/* El contenedor interno se centra vertical y horizontalmente */
+
 .profile-wrapper {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 100vh; /* asegura que ocupe toda la pantalla */
+  min-height: 100vh; 
 }
 
-/* Tarjeta principal */
+
 .profile-card {
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(8px);
@@ -28,18 +28,18 @@
   align-items: center;
 }
 
-/* Encabezado */
+
 .profile-header {
   margin-bottom: 1.5rem;
 
   h2 {
     font-size: 1.8rem;
-    color: #ffffff;
+    color: #fefefe;
     font-weight: 600;
   }
 }
 
-/* Avatar */
+
 .avatar-section {
   display: flex;
   flex-direction: column;
@@ -52,7 +52,7 @@
   height: 110px;
   border-radius: 50%;
   overflow: hidden;
-  border: 3px solid #5aa0ff;
+  border: 3px solid #072c60;
   background-color: #fff;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
   cursor: pointer;
@@ -69,12 +69,11 @@
   }
 }
 
-/* Menú de avatares */
 .avatar-menu {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(7, 55, 89, 0.95);
   border-radius: 10px;
   padding: 10px;
   margin-top: 10px;
@@ -101,7 +100,7 @@
   }
 }
 
-/* Información del perfil */
+
 .profile-info {
   margin-bottom: 1.5rem;
   width: 100%;
@@ -111,7 +110,7 @@
     --color: #ffffff;
     color: #fff;
     text-align: left;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    border-bottom: 1px solid rgba(131, 126, 126, 0.308);
     margin-bottom: 10px;
 
     ion-label {
@@ -126,7 +125,7 @@
   }
 }
 
-/* Botones */
+
 .button-group {
   display: flex;
   flex-direction: column;
@@ -151,30 +150,49 @@
     }
   }
 }
-
-.action-btn {
-  width: 70%;
+ion-button {
   border-radius: 10px;
   font-weight: 600;
-}
-
-.logout-btn {
-  width: 70%;
-  background: #e74c3c;
-  border-radius: 10px;
-  font-weight: 600;
+  color: #fff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s ease-in-out;
 
   &:hover {
-    background-color: #c0392b;
+    transform: translateY(-2px);
   }
 }
 
-ion-note[color='danger'] {
-  font-size: 0.85rem;
-  margin-top: 4px;
+
+
+.btn-editar {
+  --background: #315277;
+  --background-hover: #063362;
 }
 
-/* Animación */
+
+.btn-guardar {
+  --background: #065619;
+  --background-hover: #065619;
+}
+
+.btn-cancelar {
+  --background: #6c757d;
+  --background-hover: #545b62;
+}
+
+
+.btn-cerrar {
+  --background: #54040c;
+  --background-hover: #54040c;
+  width: 80%;
+  max-width: 320px;
+  margin: 0 auto;
+  display: block;
+  height: 52px;          
+  font-size: 1rem; 
+}
+
+
 @keyframes fadeIn {
   from {
     opacity: 0;

@@ -24,11 +24,19 @@ export class ProfilePage implements OnInit {
   dniError: boolean = false;
 
   showAvatarMenu = false;
-  selectedAvatarPath = 'assets/img/Avatars/avatar-default.svg';
+  selectedAvatarPath = 'assets/img/Avatars/avatar-default.jpeg';
   avatars = [
-    { name: 'Avatar 1', path: 'assets/img/Avatars/Avatar1.svg' },
-    { name: 'Avatar 2', path: 'assets/img/Avatars/Avatar2.svg' },
-    { name: 'Avatar 3', path: 'assets/img/Avatars/Avatar3.svg' },
+    
+    { name: 'Avatar 3', path: 'assets/img/Avatars/avatar3.png' },
+    { name: 'Avatar 5', path: 'assets/img/Avatars/avatar5.png' },
+    { name: 'Avatar 4', path: 'assets/img/Avatars/avatar6.png' },
+    { name: 'Avatar 4', path: 'assets/img/Avatars/avatar4.png' },
+    { name: 'Avatar 4', path: 'assets/img/Avatars/avatar7.jpeg' },
+    { name: 'Avatar 4', path: 'assets/img/Avatars/avatar8.png' },
+    { name: 'Avatar 4', path: 'assets/img/Avatars/avatar9.png' },
+    { name: 'Avatar 4', path: 'assets/img/Avatars/avatar10.png' },
+    { name: 'Avatar 4', path: 'assets/img/Avatars/avatar11.png' },
+    { name: 'Avatar 4', path: 'assets/img/Avatars/avatar12.png' },
   ];
 
   userId: string | null = null;
@@ -84,7 +92,7 @@ export class ProfilePage implements OnInit {
     try {
       if (!this.userId) throw new Error('Usuario no identificado');
 
-      // ✅ Validar formato solo si el usuario ingresó algo
+      
       if (this.dni && !/^[0-9]{7,8}$/.test(this.dni)) {
         this.dniError = true;
         await this.mostrarToast('El DNI debe tener 7 u 8 números sin puntos 🪪', 'warning');
@@ -130,3 +138,4 @@ export class ProfilePage implements OnInit {
     }
   }
 }
+
