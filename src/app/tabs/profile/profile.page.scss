@@ -1,0 +1,205 @@
+.profile-container {
+  --background: linear-gradient(135deg, #1e2a3a, #1e2a3a);
+  height: 100%;
+}
+
+
+.profile-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh; 
+}
+
+
+.profile-card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(8px);
+  padding: 2rem 1.5rem;
+  border-radius: 20px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+  width: 90%;
+  max-width: 420px;
+  color: #fff;
+  text-align: center;
+  animation: fadeIn 0.6s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+.profile-header {
+  margin-bottom: 1.5rem;
+
+  h2 {
+    font-size: 1.8rem;
+    color: #fefefe;
+    font-weight: 600;
+  }
+}
+
+
+.avatar-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 1.2rem;
+}
+
+.avatar-wrapper {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid #072c60;
+  background-color: #fff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.avatar-menu {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  background: rgba(7, 55, 89, 0.95);
+  border-radius: 10px;
+  padding: 10px;
+  margin-top: 10px;
+  animation: fadeIn 0.3s ease;
+
+  .avatar-option {
+    width: 60px;
+    height: 60px;
+    margin: 5px;
+    border-radius: 50%;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+}
+
+
+.profile-info {
+  margin-bottom: 1.5rem;
+  width: 100%;
+
+  ion-item {
+    --background: transparent;
+    --color: #ffffff;
+    color: #fff;
+    text-align: left;
+    border-bottom: 1px solid rgba(131, 126, 126, 0.308);
+    margin-bottom: 10px;
+
+    ion-label {
+      color: #d0d0d0;
+      font-weight: 500;
+    }
+
+    ion-input {
+      color: #ffffff;
+      font-weight: 600;
+    }
+  }
+}
+
+
+.button-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+}
+
+.edit-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+
+  ion-button {
+    width: 45%;
+    border-radius: 10px;
+    font-weight: 600;
+    transition: transform 0.15s ease-in-out;
+
+    &:hover {
+      transform: translateY(-2px);
+    }
+  }
+}
+ion-button {
+  border-radius: 10px;
+  font-weight: 600;
+  color: #fff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s ease-in-out;
+
+  &:hover {
+    transform: translateY(-2px);
+  }
+}
+
+
+
+.btn-editar {
+  --background: #315277;
+  --background-hover: #063362;
+}
+
+
+.btn-guardar {
+  --background: #065619;
+  --background-hover: #065619;
+}
+
+.btn-cancelar {
+  --background: #6c757d;
+  --background-hover: #545b62;
+}
+
+
+.btn-cerrar {
+  --background: #54040c;
+  --background-hover: #54040c;
+  width: 80%;
+  max-width: 320px;
+  margin: 0 auto;
+  display: block;
+  height: 52px;          
+  font-size: 1rem; 
+}
+
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
