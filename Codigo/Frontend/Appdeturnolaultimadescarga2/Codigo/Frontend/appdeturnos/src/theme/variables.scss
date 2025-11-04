@@ -1,0 +1,85 @@
+// For information on how to create your own theme, please see:
+// http://ionicframework.com/docs/theming/
+
+
+:root{
+   
+ // color="azul-grisaseo"
+  --ion-color-azul-grisaseo: #34495E;
+  --ion-color-azul-grisaseo-rgb: 52, 73, 94;
+  --ion-color-azul-grisaseo-contrast: #ffffff;
+  --ion-color-azul-grisaseo-contrast-rgb: 255, 255, 255;
+  --ion-color-azul-grisaseo-shade: #2e4053;
+  --ion-color-azul-grisaseo-tint: #495c6f;
+
+  // color="gris-pizarra"
+  --ion-color-gris-pizarra: #2F4F4F;
+  --ion-color-gris-pizarra-rgb: 47, 79, 79;
+  --ion-color-gris-pizarra-contrast: #ffffff;
+  --ion-color-gris-pizarra-contrast-rgb: 255, 255, 255;
+  --ion-color-gris-pizarra-shade: #294545;
+  --ion-color-gris-pizarra-tint: #446060;
+
+  // color="azul-acero"
+  --ion-color-azul-acero: #4682B4;
+  --ion-color-azul-acero-rgb: 70, 130, 180;
+  --ion-color-azul-acero-contrast: #ffffff;
+  --ion-color-azul-acero-contrast-rgb: 255, 255, 255;
+  --ion-color-azul-acero-shade: #3e729f;
+  --ion-color-azul-acero-tint: #598fb8;
+
+  //color="azul-medio"
+  --ion-color-azul-medio: #3B5998;
+  --ion-color-azul-medio-rgb: 59, 89, 152;
+  --ion-color-azul-medio-contrast: #ffffff;
+  --ion-color-azul-medio-contrast-rgb: 255, 255, 255;
+  --ion-color-azul-medio-shade: #344f86;
+  --ion-color-azul-medio-tint: #4f6a9e;
+  
+  // color="rojo-error"
+  --ion-color-rojo-error: #821616;
+  --ion-color-rojo-error-rgb: 130, 22, 22;
+  --ion-color-rojo-error-contrast: #ffffff;
+  --ion-color-rojo-error-contrast-rgb: 255, 255, 255;
+  --ion-color-rojo-error-shade: #721313;
+  --ion-color-rojo-error-tint: #8e2d2d;
+
+  // color="azul-gris"
+  --ion-color-azul-gris: #3a4f6a;
+  --ion-color-azul-gris-rgb: 58, 79, 106;
+  --ion-color-azul-gris-contrast: #ffffff;
+  --ion-color-azul-gris-contrast-rgb: 255, 255, 255;
+  --ion-color-azul-gris-shade: #33465e;
+  --ion-color-azul-gris-tint: #4f617a;
+
+  // color="azul-oscuro-medio"
+  --ion-color-azul-oscuro-medio: #2c4057;
+  --ion-color-azul-oscuro-medio-rgb: 44, 64, 87;
+  --ion-color-azul-oscuro-medio-contrast: #ffffff;
+  --ion-color-azul-oscuro-medio-contrast-rgb: 255, 255, 255;
+  --ion-color-azul-oscuro-medio-shade: #27394c;
+  --ion-color-azul-oscuro-medio-tint: #415568;
+  
+  // color="mi-celeste-1"
+  --ion-color-mi-celeste-1: #68d9e3;
+  --ion-color-mi-celeste-1-rgb: 104, 217, 227;
+  --ion-color-mi-celeste-1-contrast: #000000;
+  --ion-color-mi-celeste-1-contrast-rgb: 0, 0, 0;
+  --ion-color-mi-celeste-1-shade: #5cbfee;
+  --ion-color-mi-celeste-1-tint: #77dbf0;
+
+  /* VARIABLES SIMPLES (Para usar SOLO con var(...) en CSS, NO con color="") */
+
+  
+  // Blancos y Grises simples
+  --ion-color-mi-blanco: #ffffff;
+  --ion-color-gris-claro: #EAEAEA;
+  --ion-color-gris-blanco: #AAAAAA;
+  --ion-color-gris-oscuro: #333333;
+  --ion-color-gris-medio: #444444;
+  
+  // Colores RGBA y Transparencias
+  --ion-color-gris-semitransparente: rgba(50, 50, 50, 0.7);
+  --ion-color-gris-oscuro-niebla: rgba(255, 255, 255, 0.05);
+  --ion-color-mi-translucido-gris: rgba(211, 217, 222, 0.338);
+}

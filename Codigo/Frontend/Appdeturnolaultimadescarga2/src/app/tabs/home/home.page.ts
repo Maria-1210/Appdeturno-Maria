@@ -1,4 +1,4 @@
-// src/app/pages/productos/productos.page.ts
+
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
@@ -16,12 +16,9 @@ export class HomePage {
   constructor(private router: Router) {}
 
   servicios = [
-    { nombre: 'Mecánica', icon: 'car-outline', route: '/tabs/health', imagen: 'assets/img/avatars/avatar1.png'},
-    { nombre: 'Peluquería', icon: 'cut-outline', route: '/tabs/health', imagen: 'assets/peluqueria.png' },
-    { nombre: 'Veterinaria', icon: 'paw-outline', route: '/tabs/health', imagen: 'assets/img/avatars/avatar3.png' },
-    { nombre: 'Servicio', icon: 'construct-outline', route: '/tabs/capture', imagen: 'assets/img/avatars/avatar4.png' },
-    { nombre: 'Prestadores', icon: 'people-outline', route: '/tabs/prestador', imagen: 'assets/img/avatars/avatar5.png' },
-    { nombre: 'Sucursales', icon: 'business-outline', route: '/tabs/sucursal', imagen: 'assets/img/avatars/avatar6.png' },
+    { nombre: 'Turnos', icon: 'paw-outline', route: '/tabs/health', imagen: 'assets/img/turnos.png' },
+    { nombre: 'Perfil', icon: 'people-outline', route: '/tabs/profile', imagen: 'assets/img/user_17766670.svg' },
+    { nombre: 'Inicio', icon: 'business-outline', route: '/tabs/login', imagen: 'assets/img/log-out-outline.svg' },
   ];
 
   goTo(route: string) {

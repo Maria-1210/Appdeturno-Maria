@@ -14,14 +14,17 @@ export const routes: Routes = [
     path: 'tabs',
     loadComponent: () => import('./tabs/tabs.page').then(m => m.TabsPage),
     children: [
+   {
+        path: 'health',
+        loadComponent: () => import('./tabs/health/health.page').then(m => m.HealthPage)
+      },    
+    
+    
       {
         path: 'home',
         loadComponent: () => import('./tabs/home/home.page').then(m => m.HomePage)
       },
-      {
-        path: 'health',
-        loadComponent: () => import('./tabs/health/health.page').then(m => m.HealthPage)
-      },
+     
       {
         path: 'capture',
         loadComponent: () => import('./tabs/capture/capture.page').then(m => m.CapturePage)

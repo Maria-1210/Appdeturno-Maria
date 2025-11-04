@@ -1,0 +1,69 @@
+<ion-header translucent>
+  <ion-toolbar>
+    <ion-title>Servicios</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="page-bg ion-padding">
+
+  <div class="center-card">
+    <div class="card glass">
+      <h2 class="card-title">Gestión de Servicios</h2>
+
+      <!-- Mensaje de error -->
+      <div *ngIf="errorMessage" class="error-box">{{ errorMessage }}</div>
+
+      <!-- Formulario -->
+      <form (ngSubmit)="onSubmit()" #f="ngForm">
+        <ion-item>
+          <ion-label position="floating">Nombre *</ion-label>
+          <ion-input required name="nombre" [(ngModel)]="modelo.nombre"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Descripción</ion-label>
+          <ion-textarea name="descripcion" [(ngModel)]="modelo.descripcion"></ion-textarea>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Duración (minutos) *</ion-label>
+          <ion-input type="number" required name="duracion_minutos" [(ngModel)]="modelo.duracion_minutos"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Precio ($) *</ion-label>
+          <ion-input type="number" required name="precio" [(ngModel)]="modelo.precio"></ion-input>
+        </ion-item>
+
+        <ion-row class="buttons-row">
+          <ion-col>
+            <ion-button expand="block" color="success" type="submit">
+              {{ isEditing ? 'Guardar cambios' : 'Agregar servicio' }}
+            </ion-button>
+          </ion-col>
+          <ion-col *ngIf="isEditing">
+            <ion-button expand="block" fill="outline" color="medium" (click)="cancelEdit()">Cancelar</ion-button>
+          </ion-col>
+        </ion-row>
+      </form>
+    </div>
+  </div>
+
+  <!-- Listado -->
+  <div class="list-wrap">
+    <ion-list>
+      <ion-item *ngFor="let s of servicios" class="service-item">
+        <ion-label>
+          <h3>{{ s.nombre }}</h3>
+          <p class="meta">
+            {{ s.descripcion }}<br>
+            ⏱ {{ s.duracion_minutos }} min • 💲{{ s.precio }}
+          </p>
+        </ion-label>
+        <ion-button fill="clear" color="primary" (click)="startEdit(s)">Editar</ion-button>
+        <ion-button fill="clear" color="danger" (click)="confirmDelete(s.id_servicio)">Eliminar</ion-button>
+      </ion-item>
+    </ion-list>
+  </div>
+
+</ion-content>
