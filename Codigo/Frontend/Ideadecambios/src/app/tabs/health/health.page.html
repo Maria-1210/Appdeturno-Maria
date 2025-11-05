@@ -1,0 +1,99 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Turnos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <!-- Selección paso a paso -->
+  <div class="booking-section">
+    <h2>Reservar turno</h2>
+
+    <!-- Tipo de servicio -->
+    <ion-item>
+      <ion-label>Tipo de servicio</ion-label>
+      <ion-select [(ngModel)]="selectedCategoria" (ionChange)="loadServicios()">
+        <ion-select-option *ngFor="let cat of categorias" [value]="cat.id_categoria">
+          {{ cat.nombre }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <!-- Servicio -->
+    <ion-item *ngIf="servicios.length > 0">
+      <ion-label>Servicio</ion-label>
+      <ion-select [(ngModel)]="selectedServicio" (ionChange)="loadProfesionales()">
+        <ion-select-option *ngFor="let serv of servicios" [value]="serv.id_servicio">
+          {{ serv.nombre }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <!-- Profesional -->
+    <ion-item *ngIf="profesionales.length > 0">
+      <ion-label>Profesional</ion-label>
+      <ion-select [(ngModel)]="selectedPrestador" (ionChange)="loadSucursales()">
+        <ion-select-option *ngFor="let prest of profesionales" [value]="prest.id_prestador">
+          {{ prest.nombre }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <!-- Sucursal -->
+    <ion-item *ngIf="sucursales.length > 0">
+      <ion-label>Sucursal</ion-label>
+      <ion-select [(ngModel)]="selectedSucursal" (ionChange)="loadDisponibilidad()">
+        <ion-select-option *ngFor="let suc of sucursales" [value]="suc.id_sucursal">
+          {{ suc.nombre }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <!-- Fecha -->
+    <ion-item *ngIf="disponibilidad.length > 0">
+      <ion-label>Fecha</ion-label>
+      <ion-datetime
+        presentation="date"
+        [(ngModel)]="selectedDate"
+        (ionChange)="loadHorarios()">
+      </ion-datetime>
+    </ion-item>
+
+    <!-- Horarios -->
+    <ion-item *ngIf="horarios.length > 0">
+      <ion-label>Horario</ion-label>
+      <ion-select [(ngModel)]="selectedHora">
+        <ion-select-option *ngFor="let h of horarios" [value]="h">{{ h }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <!-- Botón confirmar -->
+    <ion-button expand="block" color="success" (click)="confirmarTurno()" [disabled]="!selectedHora">
+      Confirmar turno
+    </ion-button>
+  </div>
+
+  <ion-divider></ion-divider>
+
+  <!-- Turnos del usuario -->
+  <div class="my-turns">
+    <h2>Mis turnos</h2>
+    <ion-list *ngIf="turnos.length > 0; else noTurnos">
+      <ion-item *ngFor="let t of turnos">
+        <ion-label>
+          <h3>{{ t.servicio_nombre }} - {{ t.prestador_nombre }}</h3>
+          <p>{{ t.inicio | date: 'fullDate' }} - {{ t.inicio | date: 'shortTime' }}</p>
+          <p><b>Estado:</b> {{ t.estado }}</p>
+        </ion-label>
+        <ion-button fill="clear" color="danger" (click)="eliminarTurno(t.id_turno)">
+          Cancelar
+        </ion-button>
+      </ion-item>
+    </ion-list>
+    <ng-template #noTurnos>
+      <p class="no-turnos">No tienes turnos agendados.</p>
+    </ng-template>
+  </div>
+
+</ion-content>

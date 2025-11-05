@@ -1,0 +1,120 @@
+<ion-content class="profile-container">
+  <div class="profile-wrapper">
+    <div class="profile-card">
+      <div class="profile-header">
+        <h2>Mi Perfil</h2>
+      </div>
+
+      <div class="avatar-section">
+        <div class="avatar-wrapper" (click)="editarActivo && toggleAvatarMenu()">
+          <img [src]="selectedAvatarPath" alt="Avatar" class="avatar-img" />
+        </div>
+
+        <div class="avatar-menu" *ngIf="showAvatarMenu && editarActivo">
+          <div
+            *ngFor="let avatar of avatars"
+            class="avatar-option"
+            (click)="selectAvatar(avatar)"
+          >
+            <img [src]="avatar.path" [alt]="avatar.name" />
+          </div>
+        </div>
+      </div>
+
+      <div class="profile-info">
+        <ion-item lines="none">
+          <ion-label position="stacked">Nombre de Usuario</ion-label>
+          <ion-input
+            [(ngModel)]="nombre_usuario"
+            [readonly]="!editarActivo"
+            placeholder="Tu nombre de usuario"
+          ></ion-input>
+        </ion-item>
+
+        <ion-item lines="none">
+          <ion-label position="stacked">Email</ion-label>
+          <ion-input [(ngModel)]="email" readonly></ion-input>
+        </ion-item>
+
+        <ion-item lines="none">
+          <ion-label position="stacked">DNI</ion-label>
+          <ion-input
+            [(ngModel)]="dni"
+            [readonly]="!editarActivo"
+            type="number"
+            maxlength="8"
+            pattern="[0-9]*"
+            placeholder="Solo números (sin puntos)"
+          ></ion-input>
+          <ion-note color="danger" *ngIf="dniError && editarActivo">
+            ⚠️ El DNI debe tener 7 u 8 números sin puntos
+          </ion-note>
+        </ion-item>
+
+        <ion-item lines="none">
+          <ion-label position="stacked">Ubicación</ion-label>
+          <ion-input
+            [(ngModel)]="ubicacion"
+            [readonly]="!editarActivo"
+            placeholder="Ciudad o zona"
+          ></ion-input>
+        </ion-item>
+
+        <!-- 🔹 Teléfono con selector de país -->
+        <ion-item lines="none">
+          <ion-label position="stacked">Teléfono</ion-label>
+          <div class="phone-input">
+            <ion-select
+              [(ngModel)]="codigoPais"
+              [disabled]="!editarActivo"
+              interface="popover"
+              class="codigo-select"
+            >
+              <ion-select-option value="+54">🇦🇷 +54 (AR)</ion-select-option>
+              <ion-select-option value="+598">🇺🇾 +598 (UY)</ion-select-option>
+              <ion-select-option value="+56">🇨🇱 +56 (CL)</ion-select-option>
+              <ion-select-option value="+57">🇨🇴 +57 (CO)</ion-select-option>
+              <ion-select-option value="+34">🇪🇸 +34 (ES)</ion-select-option>
+              <ion-select-option value="+1">🇺🇸 +1 (US)</ion-select-option>
+            </ion-select>
+
+            <ion-input
+             [(ngModel)]="telefono_local"
+             [readonly]="!editarActivo"
+             type="number"
+             inputmode="numeric"
+             pattern="[0-9]*"
+             placeholder="Ej: 1133344455"
+             maxlength="15"
+             (ionInput)="validarSoloNumeros($event)"
+            ></ion-input>
+          </div>
+
+          <ion-note color="warning" *ngIf="telefonoError && editarActivo" class="tel-note">
+            ⚠️ Número inválido para el país seleccionado
+          </ion-note>
+        </ion-item>
+      </div>
+
+      <div class="button-group">
+        <ion-button
+          *ngIf="!editarActivo"
+          expand="block"
+          (click)="editarPerfil()"
+          class="btn-editar"
+        >
+          Editar Perfil
+        </ion-button>
+
+        <div *ngIf="editarActivo" class="edit-buttons">
+          <ion-button class="btn-guardar" (click)="guardarCambios()">Guardar</ion-button>
+          <ion-button class="btn-cancelar" (click)="cancelarEdicion()">Cancelar</ion-button>
+        </div>
+
+        <ion-button expand="block" (click)="logout()" class="btn-cerrar">
+          Cerrar Sesión
+        </ion-button>
+      </div>
+    </div>
+  </div>
+</ion-content>

@@ -14,21 +14,27 @@ export const routes: Routes = [
     path: 'tabs',
     loadComponent: () => import('./tabs/tabs.page').then(m => m.TabsPage),
     children: [
-      {
-        path: 'home',
-        loadComponent: () => import('./tabs/home/home.page').then(m => m.HomePage)
-      },
+
       {
         path: 'health',
         loadComponent: () => import('./tabs/health/health.page').then(m => m.HealthPage)
       },
       {
+        path: 'home',
+        loadComponent: () => import('./tabs/home/home.page').then(m => m.HomePage)
+      },
+
+      {
         path: 'capture',
         loadComponent: () => import('./tabs/capture/capture.page').then(m => m.CapturePage)
       },
+     {
+        path: 'servicios',
+        loadComponent: () => import('./tabs/servicios/servicios.page').then( m => m.ServiciosPage)
+      },
       {
-        path: 'stats',
-        loadComponent: () => import('./tabs/stats/stats.page').then(m => m.StatsPage)
+       path: 'mis-turnos',
+       loadComponent: () => import('./tabs/mis-turnos/mis-turnos.page').then( m => m.MisTurnosPage)
       },
       {
         path: 'profile',
@@ -36,9 +42,10 @@ export const routes: Routes = [
       },
       {
         path: '',
-        redirectTo: 'home',
+        redirectTo: 'servicios',
         pathMatch: 'full'
       }
     ]
-  }
+  },
+
 ];

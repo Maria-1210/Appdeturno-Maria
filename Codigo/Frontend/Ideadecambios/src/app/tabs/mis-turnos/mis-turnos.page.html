@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Mis Turnos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <ion-list>
+    <ion-list-header>
+      <ion-label>Turnos agendados</ion-label>
+    </ion-list-header>
+
+    <ion-item *ngFor="let turno of turnos">
+      <ion-label>
+        <h2>{{ turno.servicio_nombre }} ({{ turno.estado | uppercase }})</h2>
+        <p>Profesional: {{ turno.prestador_nombre }}</p>
+        <p>Sucursal: {{ turno.sucursal_nombre }}</p>
+        <p>Inicio: {{ turno.inicio | date:'short' }}</p>
+        <p>Notas: {{ turno.notas || 'Sin notas' }}</p>
+      </ion-label>
+
+      <ion-buttons slot="end">
+        <ion-button color="warning" (click)="editarTurno(turno)">
+          <ion-icon name="create-outline"></ion-icon>
+        </ion-button>
+        <ion-button color="danger" (click)="cancelarTurno(turno.id_turno)">
+          <ion-icon name="close-circle-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-item>
+  </ion-list>
+
+</ion-content>
