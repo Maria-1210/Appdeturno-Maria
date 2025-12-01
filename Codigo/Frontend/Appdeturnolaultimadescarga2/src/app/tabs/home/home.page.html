@@ -53,7 +53,7 @@
           <ion-icon name="location-outline"></ion-icon>
 
           <p class="ubicacion-texto"
-             (click)="abrirMapa(proximoTurno.sucursal_direccion)">
+             (click)="abrirMapa(proximoTurno.direccion)">
             📍{{ proximoTurno.sucursal }} — {{ proximoTurno.direccion }}
           </p>
         </div>
@@ -82,7 +82,11 @@
           <ion-icon name="calendar-outline"></ion-icon>
           <p>{{ t.inicio | date:'EEEE d MMMM • HH:mm':'':'es-AR' }}</p>
         </div>
-
+        
+        <div class="info-row">
+         <ion-icon name="person-circle-outline"></ion-icon>
+         <p>{{ t.prestador }}</p>
+        </div>
         <div class="info-row ubicacion">
           <ion-icon name="location-outline"></ion-icon>
 
