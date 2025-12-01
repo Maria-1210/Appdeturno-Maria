@@ -102,14 +102,13 @@ export class HomePage {
     }));
 
    
-    // FUTUROS
     this.turnosActivos = turnos.filter(t =>
       t.estado !== 'c' &&
       t.estado !== 'cancelado' &&
       new Date(t.inicio) > ahora
     );
 
-    // HISTORIAL
+ 
     this.historial = turnos
       .filter(t =>
         t.estado === 'c' ||
