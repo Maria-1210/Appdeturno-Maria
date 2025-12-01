@@ -30,27 +30,26 @@ export class HomePage {
     private alertCtrl: AlertController
   ) {}
 
-  // Se ejecuta apenas se crea el componente
   ngOnInit() {
-    // ESCUCHA EL EVENTO ENVIADO DESDE STATS
+   
     window.addEventListener('turno_actualizado', async () => {
       console.log("Evento recibido: turno_actualizado → recargando turnos");
       await this.cargarTurnos();
     });
   }
 
-  /**  SE EJECUTA CADA VEZ QUE APARECE ESTA PÁGINA */
+  
   async ionViewWillEnter() {
     await this.cargarUsuario();
     await this.cargarTurnos();
   }
 
-  /**  SE EJECUTA SIEMPRE DESPUÉS DE NAVEGAR A HOME */
+  
   async ionViewDidEnter() {
     await this.cargarTurnos();
   }
 
-  /**  Nombre del usuario */
+
   async cargarUsuario() {
     const { data: auth } = await supabase.auth.getUser();
     if (!auth?.user) return;
@@ -69,7 +68,6 @@ export class HomePage {
     if (data) this.nombreUsuario = data.nombre_usuario;
   }
 
-  /**  Carga los turnos del usuario */
   async cargarTurnos() {
     const { data: auth } = await supabase.auth.getUser();
     if (!auth?.user) return;

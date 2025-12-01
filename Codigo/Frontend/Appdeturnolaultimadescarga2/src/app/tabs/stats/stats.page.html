@@ -11,7 +11,7 @@
 
   <div class="contenedor">
 
-    <!-- Encabezado -->
+    
     <div class="header-servicio">
       <h1 class="servicio-titulo">{{ nombreServicio }}</h1>
 
@@ -21,19 +21,19 @@
     </div>
 
 
-    <!-- FECHA -->
+   
     <div class="campo">
       <label>Fecha</label>
       <ion-input type="date" [(ngModel)]="fecha"></ion-input>
     </div>
 
-    <!-- HORA -->
+    
     <div class="campo">
       <label>Hora</label>
       <ion-input type="time" [(ngModel)]="hora"></ion-input>
     </div>
 
-    <!-- SUCURSAL -->
+   
     <div class="campo">
       <label>Sucursal</label>
       <ion-select [(ngModel)]="id_sucursal">
@@ -45,7 +45,7 @@
       </ion-select>
     </div>
 
-    <!-- BOTÓN GUARDAR -->
+    
     <ion-button expand="block" class="btn-guardar" (click)="guardarCambios()">
       Guardar cambios
     </ion-button>

@@ -22,18 +22,17 @@ export class StatsPage {
 
   id_turno!: number;
 
-  // Nuevas variables que NECESITA TU HTML
+
   nombreServicio: string = '';
   nombreProfesional: string = '';
 
   mostrarCalendario: boolean = false;
 
-  // Datos editables
+  
   fecha: string = '';
   hora: string = '';
   id_sucursal!: number;
 
-  // Listas
   sucursales: any[] = [];
 
   constructor(
@@ -42,7 +41,7 @@ export class StatsPage {
     private alertCtrl: AlertController
   ) {}
 
-  // FECHA FORMATEADA PARA MOSTRAR EN EL INPUT
+  
   get fechaFormateada() {
     if (!this.fecha) return '';
     const d = new Date(this.fecha);
@@ -80,11 +79,11 @@ export class StatsPage {
 
     if (!data) return;
 
-    // Mostrar títulos arriba
+   
     this.nombreServicio = data.servicio;
     this.nombreProfesional = data.prestador;
 
-    // Datos editables
+   
     this.id_sucursal = data.id_sucursal;
 
     const inicio = new Date(data.inicio);
