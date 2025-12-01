@@ -1,7 +1,0 @@
-{
-  "name": "foodsnapcal",
-  "integrations": {
-    "capacitor": {}
-  },
-  "type": "angular-standalone"
-}
