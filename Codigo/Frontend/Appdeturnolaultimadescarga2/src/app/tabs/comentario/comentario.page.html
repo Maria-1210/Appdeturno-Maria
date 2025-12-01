@@ -1,0 +1,129 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Comentarios</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <!-- NUEVO COMENTARIO -->
+  <ion-card *ngIf="!editando">
+    <ion-card-header>
+      <ion-card-title>Nuevo Comentario</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-label position="stacked">Comentario</ion-label>
+        <ion-textarea [(ngModel)]="nuevoComentario.comentario" placeholder="Escribí tu comentario..."></ion-textarea>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Descripción</ion-label>
+        <ion-input [(ngModel)]="nuevoComentario.descripcion" placeholder="Detalles opcionales"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Puntuación</ion-label>
+        <ion-range min="1" max="5" step="1" snaps="true" [(ngModel)]="nuevoComentario.puntuacion">
+          <ion-label slot="start">1</ion-label>
+          <ion-label slot="end">5</ion-label>
+        </ion-range>
+      </ion-item>
+
+      <ion-button expand="block" color="success" (click)="guardarComentario()">
+        <ion-icon name="add-circle-outline" slot="start"></ion-icon>
+        Guardar comentario
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- EDITAR COMENTARIO -->
+  <ion-card *ngIf="editando">
+    <ion-card-header>
+      <ion-card-title>Editar Comentario</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-label position="stacked">Comentario</ion-label>
+        <ion-textarea [(ngModel)]="editando.comentario"></ion-textarea>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Descripción</ion-label>
+        <ion-input [(ngModel)]="editando.descripcion"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Puntuación</ion-label>
+        <ion-range min="1" max="5" step="1" snaps="true" [(ngModel)]="editando.puntuacion">
+          <ion-label slot="start">1</ion-label>
+          <ion-label slot="end">5</ion-label>
+        </ion-range>
+      </ion-item>
+
+      <ion-button expand="block" color="primary" (click)="actualizarComentario()">
+        <ion-icon name="save-outline" slot="start"></ion-icon>
+        Actualizar
+      </ion-button>
+
+      <ion-button expand="block" color="medium" (click)="editando = null">
+        <ion-icon name="close-outline" slot="start"></ion-icon>
+        Cancelar
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- LISTA DE COMENTARIOS -->
+  <ion-list>
+    <ion-list-header>
+      <ion-label>Comentarios recientes</ion-label>
+    </ion-list-header>
+
+    <!-- Barra de búsqueda -->
+    <ion-searchbar 
+      [(ngModel)]="searchTerm" 
+      (ionInput)="filtrarComentarios()"
+      placeholder="Buscar comentarios..."
+      showClearButton="always">
+    </ion-searchbar>
+
+    <!-- Spinner de carga -->
+    <div *ngIf="isLoading" class="ion-text-center ion-padding">
+      <ion-spinner name="crescent" color="primary"></ion-spinner>
+      <p>Cargando comentarios...</p>
+    </div>
+
+    <!-- Estado vacío -->
+    <ion-item *ngIf="!isLoading && comentariosFiltrados.length === 0 && searchTerm" lines="none">
+      <ion-label class="ion-text-center">
+        <p style="color: var(--ion-color-medium);">No se encontraron comentarios con "{{ searchTerm }}"</p>
+      </ion-label>
+    </ion-item>
+
+    <ion-item *ngIf="!isLoading && comentarios.length === 0 && !searchTerm" lines="none">
+      <ion-label class="ion-text-center">
+        <p style="color: var(--ion-color-medium);">No hay comentarios aún</p>
+        <p style="color: var(--ion-color-medium); font-size: 0.9em;">¡Sé el primero en comentar!</p>
+      </ion-label>
+    </ion-item>
+
+    <!-- Lista de comentarios -->
+    <ion-item *ngFor="let c of comentariosFiltrados">
+      <ion-label>
+        <h2>{{ c.comentario }}</h2>
+        <p *ngIf="c.descripcion">{{ c.descripcion }}</p>
+        <p>⭐ {{ c.puntuacion }} — {{ c.fecha_comentario | date:'short' }}</p>
+      </ion-label>
+      <ion-buttons slot="end">
+        <ion-button color="primary" (click)="editar(c)">
+          <ion-icon slot="icon-only" name="create-outline"></ion-icon>
+        </ion-button>
+        <ion-button color="danger" (click)="eliminarComentario(c.id_comentario!)">
+          <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-item>
+  </ion-list>
+</ion-content>
+
+
+

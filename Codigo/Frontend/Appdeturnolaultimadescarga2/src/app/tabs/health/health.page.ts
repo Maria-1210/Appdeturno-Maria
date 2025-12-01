@@ -1,8 +1,9 @@
-  import { Component, OnInit } from '@angular/core';
-  import { CommonModule } from '@angular/common';
-  import { FormsModule } from '@angular/forms';
-  import { IonicModule } from '@ionic/angular';
-  import { supabase } from '../../supabase';
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { IonicModule, ToastController } from '@ionic/angular';
+import { supabase } from '../../supabase';
+import { AnalyticsService } from '../../services/analytics.service';
 
 @Component({
   selector: 'app-health',
@@ -17,6 +18,7 @@ export class HealthPage implements OnInit {
   servicios: any[] = [];
   prestadores: any[] = [];
   sucursales: any[] = [];
+  isLoading = false; // Estado de carga
 
   nuevoTurno: any = {
     usuario_id: '',
@@ -29,17 +31,24 @@ export class HealthPage implements OnInit {
     notas: ''
   };
 
-  constructor() {}
+  constructor(
+    private toastCtrl: ToastController,
+    private analytics: AnalyticsService
+  ) {}
 
   async ngOnInit() {
+    this.analytics.trackPageView('health', '/tabs/health');
     await this.cargarUsuario();
     await this.cargarListas();
     await this.cargarTurnos();
   }
 
+  // Usa el usuario de auth (UUID) y lo guarda en nuevoTurno.usuario_id
   async cargarUsuario() {
-    // Asignamos manualmente el ID del usuario creado en la tabla "usuario"
-    this.nuevoTurno.usuario_id = '6f6fed94-960f-4350-b961-d27b3f70be1f';
+    const { data: { user } } = await supabase.auth.getUser();
+    if (user) {
+      this.nuevoTurno.usuario_id = user.id;
+    }
   }
 
   async cargarListas() {
@@ -53,7 +62,7 @@ export class HealthPage implements OnInit {
 
     const { data: sucursalesData } = await supabase
       .from('sucursal')
-      .select('id_sucursal, nombre');
+      .select('id_sucursal, nombre, direccion');
 
     this.servicios = (serviciosData || []).map(s => ({
       id: s.id_servicio,
@@ -71,65 +80,89 @@ export class HealthPage implements OnInit {
     }));
   }
 
+  // 🔥 Turnos pendientes = turnos FUTUROS del usuario, no cancelados
   async cargarTurnos() {
-    const { data: { user } } = await supabase.auth.getUser();
-    if (!user) return;
+    this.isLoading = true;
 
-    const { data, error } = await supabase
-      .from('turno')
-      .select(`
-        id_turno,
-        inicio,
-        estado,
-        notas,
-        servicio:servicio(id_servicio, nombre),
-        prestador:prestador(id_prestador, nombre),
-        sucursal:sucursal(id_sucursal, nombre)
-      `)
-      .eq('usuario_id', user.id)
-      .order('inicio', { ascending: true });
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) return;
 
-    if (!error && data) {
-      this.turnos = data.map((t: any) => ({
+      const { data, error } = await supabase
+        .from('turno')
+        .select(`
+          id_turno,
+          inicio,
+          estado,
+          notas,
+          servicio:servicio(id_servicio, nombre),
+          prestador:prestador(id_prestador, nombre),
+          sucursal:sucursal(id_sucursal, nombre, direccion)
+        `)
+        .eq('usuario_id', user.id)
+        .order('inicio', { ascending: true });
+
+      if (error) {
+        console.error('Error al cargar turnos:', error);
+        return;
+      }
+
+      const ahora = new Date();
+
+      // FUTUROS y no cancelados
+      const turnosFuturos = (data || []).filter((t: any) =>
+        t.estado !== 'c' &&
+        t.estado !== 'cancelado' &&
+        new Date(t.inicio) > ahora
+      );
+
+      this.turnos = turnosFuturos.map((t: any) => ({
         ...t,
         servicio_nombre: t.servicio?.nombre || 'Sin servicio',
         prestador_nombre: t.prestador?.nombre || 'Sin profesional',
         sucursal_nombre: t.sucursal?.nombre || 'Sin sucursal'
       }));
+    } catch (error) {
+      console.error('Error al cargar turnos:', error);
+    } finally {
+      this.isLoading = false;
     }
   }
 
   async agregarTurno() {
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) {
-      alert('Debes estar logueado para crear turnos.');
+      await this.mostrarToast('Debes estar logueado para crear turnos.', 'warning');
       return;
     }
 
     if (!this.nuevoTurno.id_servicio || !this.nuevoTurno.id_prestador || !this.nuevoTurno.inicio) {
-      alert('Por favor completá todos los campos obligatorios.');
+      await this.mostrarToast('Por favor completá todos los campos obligatorios.', 'warning');
       return;
     }
 
-    // Calcular fin automáticamente (1 hora después del inicio)
-    const inicioDate = new Date(this.nuevoTurno.inicio);
-    const finDate = new Date(inicioDate.getTime() + 60 * 60 * 1000);
+    // 1) Convertir el valor de ion-datetime a Date LOCAL (sin aplicar doble zona horaria)
+    const inicioLocal = this.parseIonDatetimeToLocalDate(this.nuevoTurno.inicio);
+
+    // 2) fin = inicio + 1 hora
+    const finLocal = new Date(inicioLocal.getTime() + 60 * 60 * 1000);
 
     const nuevoTurnoData = {
       ...this.nuevoTurno,
-      usuario_id: user.id,
-      fin: finDate.toISOString(),
+      usuario_id: user.id,                // usamos el UUID de auth
+      inicio: inicioLocal.toISOString(),  // se guarda en UTC correcto
+      fin: finLocal.toISOString(),
     };
-
-    console.log('Datos enviados a Supabase:', nuevoTurnoData); // 🧠 Debug
 
     const { error } = await supabase.from('turno').insert([nuevoTurnoData]);
 
     if (error) {
-      alert('Error al guardar el turno: ' + error.message);
+      await this.mostrarToast('Error al guardar el turno: ' + error.message, 'danger');
+      this.analytics.trackError('turno_creation_error', error.message);
       console.error(error);
     } else {
-      alert('Turno guardado con éxito ✅');
+      await this.mostrarToast('Turno guardado con éxito ✅', 'success');
+      this.analytics.trackTurnoCreated(nuevoTurnoData);
       this.nuevoTurno = {
         usuario_id: user.id,
         id_servicio: null,
@@ -140,7 +173,38 @@ export class HealthPage implements OnInit {
         estado: 'pendiente',
         notas: ''
       };
-      await this.cargarTurnos();
+      await this.cargarTurnos(); // recarga pendientes abajo
     }
+  }
+
+  async mostrarToast(
+    mensaje: string,
+    color: 'success' | 'danger' | 'warning' = 'success'
+  ) {
+    const toast = await this.toastCtrl.create({
+      message: mensaje,
+      duration: 3000,
+      position: 'top',
+      color: color
+    });
+    await toast.present();
+  }
+
+  // Interpreta el ion-datetime como hora local (Argentina) antes de pasarlo a UTC
+  private parseIonDatetimeToLocalDate(value: string): Date {
+    if (!value) return new Date();
+
+    // Quita Z o el offset como -03:00 (ej: 2025-11-27T13:45:00.000Z o 2025-11-27T13:45:00.000-03:00)
+    const clean = value.replace(/Z|([+-]\d{2}:\d{2})$/, '');
+    const [datePart, timePart] = clean.split('T');
+
+    const [year, month, day] = datePart.split('-').map(Number);
+    const [hour, minute, secondRaw] = (timePart || '00:00:00').split(':');
+    const hourNum = Number(hour);
+    const minuteNum = Number(minute);
+    const secondNum = Number(secondRaw || 0);
+
+    // Se interpreta como fecha/hora LOCAL (ej: Argentina)
+    return new Date(year, month - 1, day, hourNum, minuteNum, secondNum);
   }
 }

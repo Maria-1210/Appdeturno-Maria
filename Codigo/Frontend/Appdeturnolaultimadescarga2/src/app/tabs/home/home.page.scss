@@ -1,68 +1,212 @@
+/* -------------------------------------------
+   TIPOGRAFÍA
+--------------------------------------------*/
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+* {
+  font-family: 'Inter', sans-serif !important;
+  letter-spacing: .2px;
+}
+
+/* -------------------------------------------
+   FONDO (claro, elegante, tipo login)
+--------------------------------------------*/
 .home-background {
-  --background: linear-gradient(180deg, #1e2a3a 0%, #1e2a3a 100%);
+  --background: transparent !important;
+
+  background:
+    radial-gradient(circle at 20% 20%, rgba(2, 80, 114, 0.39) 0%, transparent 45%),
+    radial-gradient(circle at 80% 70%, rgba(8, 69, 96, 0.39) 0%, transparent 60%),
+    linear-gradient(180deg, #3e556a 0%, #165568 40%, #2a5967 100%);
+}
+
+/* Quitamos overlay oscuro */
+.overlay { display: none; }
+
+/* -------------------------------------------
+   HEADER
+--------------------------------------------*/
+ion-toolbar {
+  --background: #4d6780;
+  border-bottom: 1px solid #3e5871;
+  backdrop-filter: blur(15px);
+  color: #b9c8c8 !important;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+/* -------------------------------------------
+   CONTENIDO 
+--------------------------------------------*/
+.contenido {
+  padding-bottom: 120px;
+}
+
+/* -------------------------------------------
+   BIENVENIDA
+--------------------------------------------*/
+.bienvenida {
+  padding: 0 22px;
+  margin-bottom: 6px;
+}
+
+.bienvenida h1 {
+  font-size: 32px;
+  font-weight: 700;
+  color: #c0c2c4;
+}
+
+.subtitulo-principal {
+  font-size: 17px;
+  color: #aeafb5;
+}
+
+/* -------------------------------------------
+   TARJETAS (Claras, profesionales)
+--------------------------------------------*/
+.tarjeta {
+  margin: 18px;
+  padding: 22px;
+  border-radius: 18px;
+  
+  background: rgba(224, 240, 250, 0.592);
+  border: 1px solid rgba(6, 98, 144, 0.262);
+  box-shadow: 0 6px 22px rgba(40, 106, 142, 0);
+
+  backdrop-filter: blur(14px);
+
+  color: #1c2732;
+}
+
+/* -------------------------------------------
+   HEADER TURNO
+--------------------------------------------*/
+.header-turno {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
 }
 
-.home-container {
-  text-align: center;
-  padding: 20px;
+/* -------------------------------------------
+   ESTADOS
+--------------------------------------------*/
+.estado {
+  padding: 6px 14px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 600;
 }
 
-.home-title {
-  color: #fff;
-  font-size: 26px;
-  font-weight: bold;
-  margin-bottom: 20px;
+.estado.confirmado {
+  background: #70ba7a8c;
+  color: #0f4e30;
 }
 
-.service-card {
-  background: rgba(195, 195, 195, 0.373);
-  border-radius: 15px;
-  text-align: center;
-  transition: 0.3s;
-  padding: 20px;
-  width: 100%;
-  max-width: 500px;      
-  height: 250px;        
-  margin: 0 auto 20px auto;  
+.estado.cancelado {
+  background: #c76e6ea2;
+  color: #53160f;
+}
+
+.estado.asistido {
+  background: #7a8da4dd;
+  color: #0e4679;
+}
+
+/* -------------------------------------------
+   INFO DEL TURNO
+--------------------------------------------*/
+.info-row {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
   align-items: center;
+  gap: 12px;
+  margin-top: 8px;
+  color: #2D3E50;
 }
 
-.service-card:hover {
-  transform: scale(1.05);
-  background: rgba(223, 219, 219, 0.34);
+.info-row ion-icon {
+  font-size: 20px;
+  color: #535b83;
+}
+
+/* Dirección  */
+.ubicacion-texto {
+  cursor: pointer;
+  color: #293848;
+  font-weight: 600;
+}
+
+.ubicacion-texto:hover {
+  opacity: .7;
+}
+
+/* -------------------------------------------
+   BOTONES
+--------------------------------------------*/
+.acciones {
+  display: flex;
+  justify-content: flex-end;
+  gap: 22px;
+  margin-top: 25px;
+}
+
+.btn-modificar {
+  --background: #efe3aead !important;
+  --color: #6f684a !important;
+  border-radius: 8px;
+  font-weight: 600;
+  
+  
+}
+
+.btn-cancelar {
+  --background: #c6454557 !important;
+  --color: #540a0a !important;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+/* -------------------------------------------
+   TÍTULOS SECCIÓN HISTORIAL
+--------------------------------------------*/
+.subtitulo {
+  margin-left: 22px;
+  margin-top: 16px;
+  font-size: 22px;
+  font-weight: 700;
+  color: #c6cfd8;
+}
+
+/* -------------------------------------------
+   CONTENEDOR GENERAL
+--------------------------------------------*/
+.wrapper {
+  max-width: 950px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+/* -------------------------------------------
+   BOTÓN SACAR TURNO
+--------------------------------------------*/
+.boton-pro {
+  --background: #3f6b6d; /* azul profesional */
+  --background-hover: #518587;
+  --background-activated: #447071;
+
+  --color: rgba(239, 243, 242, 0.722);
+
+  height: 55px;
+  padding: 0 28px;
+
+  font-size: 17px;
+  font-weight: 700;
+
+  border-radius: 999px !important;
+}
+
+/* Necesario para que el botón quede bien redondeado */
+.boton-pro::part(native) {
+  border-radius: 999px !important;
 }
 
 
-.service-icon {
-  font-size: 40px;
-  color: #187794;
-  margin-bottom: 10px;
-}
-
-.service-name {
-  color: #fff;
-  font-size: 16px;
-  font-weight: 500;
-}
-
-
-.service-image {
-  width: 50%;               
-  max-width: 100px;          
-  height: auto;              
-  object-fit: contain;      
-  border-radius: 5px;
-  margin-bottom: 5px;
-  transition: transform 0.3s ease;
-}
-
-
-.service-card:hover .service-image {
-  transform: scale(1.05);
-}

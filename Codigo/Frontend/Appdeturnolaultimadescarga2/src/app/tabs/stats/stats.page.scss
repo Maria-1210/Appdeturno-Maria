@@ -1,0 +1,71 @@
+ion-toolbar {
+  --background: #4d6780;
+  --color: #ffffff;
+}
+/* ======== FONDO GENERAL ======== */
+ion-content {
+  --background: linear-gradient(180deg, #2f647b, #2984a0);
+  color: #ffffff;
+}
+
+/* ======== CONTENEDOR CENTRAL ======== */
+.contenedor {
+  max-width: 600px;    
+  margin: 0 auto;      
+  padding: 20px 25px; 
+}
+
+/* ======== ENCABEZADO  ======== */
+.header-servicio {
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 25px;
+}
+
+.servicio-titulo {
+  font-size: 28px;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 8px;
+}
+
+.chip-profesional {
+  display: inline-block;
+  background: #28788c;
+  color: #ffffff;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+/* ======== CAMPOS ======== */
+.campo {
+  margin-bottom: 18px;
+}
+
+label {
+  color: #ffffff;
+  font-weight: 600;
+  margin-bottom: 8px;
+  display: block;
+}
+
+ion-input,
+ion-select {
+  --color: #ffffff;
+  --placeholder-color: #cbd5e1;
+  background: rgba(255, 255, 255, 0.21);
+  padding: 12px;
+  border-radius: 10px;
+}
+
+/* ======== BOTÓN GUARDAR ======== */
+.btn-guardar {
+  margin-top: 25px;
+  --background: #2e8282;
+  --background-hover: #106888;
+  --color: #ffffff;
+  font-weight: 700;
+  border-radius: 12px;
+}

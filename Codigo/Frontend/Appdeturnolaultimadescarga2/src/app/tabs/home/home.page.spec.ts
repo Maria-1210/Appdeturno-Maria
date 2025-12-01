@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HomePage } from './home.page';
-import { IonicModule } from '@ionic/angular';
+import { IonicModule, AlertController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 describe('HomePage', () => {
   let component: HomePage;
@@ -9,6 +10,16 @@ describe('HomePage', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [IonicModule.forRoot(), HomePage],
+      providers: [
+        {
+          provide: Router,
+          useValue: jasmine.createSpyObj('Router', ['navigate'])
+        },
+        {
+          provide: AlertController,
+          useValue: {}
+        }
+      ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(HomePage);
@@ -20,10 +31,4 @@ describe('HomePage', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should navigate when goTo() is called', () => {
-    const routerSpy = jasmine.createSpyObj('Router', ['navigate']);
-    const page = new HomePage(routerSpy);
-    page.goTo('/tabs/sucursal');
-    expect(routerSpy.navigate).toHaveBeenCalledWith(['/tabs/sucursal']);
-  });
 });

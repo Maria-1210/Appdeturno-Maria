@@ -1,19 +1,147 @@
-<ion-content class="home-background">
-  <div class="home-container">
-    <h1 class="home-title">Home </h1>
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Inicio</ion-title>
+  </ion-toolbar>
+</ion-header>
 
-    <ion-grid>
-      <ion-row>
-        <ion-col size="6" *ngFor="let servicio of servicios">
-          <ion-card button class="service-card" (click)="goTo(servicio.route)">
-           <img [src]="servicio.imagen" alt="{{ servicio.nombre }}" class="service-image">
-            <ion-card-content>
-              <ion-icon [name]="servicio.icon" class="service-icon"></ion-icon>
-              <p class="service-name">{{ servicio.nombre }}</p>
-            </ion-card-content>
-          </ion-card>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </div>
+<ion-content class="home-background">
+
+  <div class="overlay"></div>
+
+  <!-- CONTENEDOR CENTRAL -->
+  <div class="wrapper">
+    <div class="contenido">
+
+      <!-- BIENVENIDA -->
+      <div class="bienvenida">
+        <h1>Hola {{ nombreUsuario }}</h1>
+        <p class="subtitulo-principal">Revisá tus próximos turnos</p>
+      </div>
+
+      <!-- SIN TURNOS -->
+      <div *ngIf="proximoTurno === null" class="tarjeta vacio fade-in">
+        <ion-icon name="calendar-clear-outline"></ion-icon>
+        <p class="titulo-vacio">No tenés turnos próximos</p>
+        <p class="sub-vacio">Sacá un nuevo turno para comenzar</p>
+      </div>
+
+      <!-- PRÓXIMO TURNO -->
+      <div *ngIf="proximoTurno" class="tarjeta turno fade-in">
+
+        <div class="header-turno">
+          <h2 class="titulo-servicio">{{ proximoTurno.servicio }}</h2>
+
+          <div class="estado" [ngClass]="proximoTurno.estado">
+            {{ proximoTurno.estado | titlecase }}
+          </div>
+        </div>
+
+        <!-- FECHA -->
+        <div class="info-row">
+          <ion-icon name="calendar-outline"></ion-icon>
+          <p>{{ proximoTurno.inicio | date:'EEEE d MMMM • HH:mm':'':'es-AR' }}</p>
+        </div>
+
+        <!-- PROFESIONAL -->
+        <div class="info-row">
+          <ion-icon name="person-circle-outline"></ion-icon>
+          <p>{{ proximoTurno.prestador }}</p>
+        </div>
+
+        <!-- UBICACIÓN -->
+        <div class="info-row ubicacion">
+          <ion-icon name="location-outline"></ion-icon>
+
+          <p class="ubicacion-texto"
+             (click)="abrirMapa(proximoTurno.sucursal_direccion)">
+            {{ proximoTurno.sucursal }} — {{ proximoTurno.direccion }}
+          </p>
+        </div>
+
+        <!-- ACCIONES -->
+        <div class="acciones">
+          <ion-button fill="clear" class="btn-modificar" (click)="editarTurno(proximoTurno)">Modificar</ion-button>
+          <ion-button fill="clear" class="btn-cancelar" (click)="cancelarTurno(proximoTurno)">Cancelar</ion-button>
+        </div>
+
+      </div>
+
+      <!-- OTROS TURNOS -->
+      <h3 *ngIf="turnosFuturos.length > 0" class="subtitulo">Otros turnos</h3>
+
+      <div *ngFor="let t of turnosFuturos" class="tarjeta turno fade-in">
+
+        <div class="header-turno">
+          <h2>{{ t.servicio }}</h2>
+          <div class="estado" [ngClass]="t.estado">
+            {{ t.estado | titlecase }}
+          </div>
+        </div>
+
+        <div class="info-row">
+          <ion-icon name="calendar-outline"></ion-icon>
+          <p>{{ t.inicio | date:'EEEE d MMMM • HH:mm':'':'es-AR' }}</p>
+        </div>
+
+        <div class="info-row ubicacion">
+          <ion-icon name="location-outline"></ion-icon>
+
+          <p class="ubicacion-texto"
+             (click)="abrirMapa(t.direccion)">
+            {{ t.sucursal }} — {{ t.direccion }}
+          </p>
+        </div>
+
+        <div class="acciones">
+          <ion-button fill="clear" class="btn-modificar" (click)="editarTurno(t)">Modificar</ion-button>
+          <ion-button fill="clear" class="btn-cancelar" (click)="cancelarTurno(t)">Cancelar</ion-button>
+        </div>
+
+      </div>
+
+      <!-- HISTORIAL -->
+      <h3 *ngIf="historial.length > 0" class="subtitulo">Historial</h3>
+
+      <div *ngFor="let h of historial" class="tarjeta turno fade-in">
+
+        <div class="header-turno">
+          <h2>{{ h.servicio }}</h2>
+
+          <div class="estado" [ngClass]="h.estado">
+            {{ h.estado | titlecase }}
+          </div>
+        </div>
+
+        <!-- FECHA -->
+        <div class="info-row">
+          <ion-icon name="calendar-outline"></ion-icon>
+          <p>{{ h.inicio | date:'EEEE d MMMM • HH:mm':'':'es-AR' }}</p>
+        </div>
+
+        <!-- PROFESIONAL -->
+        <div class="info-row">
+          <ion-icon name="person-circle-outline"></ion-icon>
+          <p>{{ h.prestador }}</p>
+        </div>
+
+        <!-- UBICACIÓN -->
+        <div class="info-row ubicacion">
+          <ion-icon name="location-outline"></ion-icon>
+
+          <p class="ubicacion-texto"
+             (click)="abrirMapa(h.direccion)">
+            {{ h.sucursal }} — {{ h.direccion }}
+          </p>
+        </div>
+
+      </div>
+
+    </div> <!-- contenido -->
+
+  </div> <!-- wrapper -->
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-button class="boton-pro" (click)="nuevoTurno()">SACAR TURNO</ion-button>
+  </ion-fab>
+ 
 </ion-content>

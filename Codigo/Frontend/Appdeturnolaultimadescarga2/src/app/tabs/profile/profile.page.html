@@ -1,13 +1,23 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Mi Perfil</ion-title>
+  </ion-toolbar>
+</ion-header>
+
 <ion-content class="profile-container">
   <div class="profile-wrapper">
     <div class="profile-card">
+
       <div class="profile-header">
-        <h2>Mi Perfil</h2>
+        <h2>👤 Información Personal</h2>
+        <p *ngIf="!editarActivo" class="subtitle">Visualiza y edita tus datos</p>
+        <p *ngIf="editarActivo" class="subtitle edit-mode">✏️ Modo edición activo</p>
       </div>
 
       <div class="avatar-section">
         <div class="avatar-wrapper" (click)="editarActivo && toggleAvatarMenu()">
           <img [src]="selectedAvatarPath" alt="Avatar" class="avatar-img" />
+          <ion-icon *ngIf="editarActivo" name="camera" class="camera-icon"></ion-icon>
         </div>
 
         <div class="avatar-menu" *ngIf="showAvatarMenu && editarActivo">
@@ -23,6 +33,7 @@
 
       <div class="profile-info">
         <ion-item lines="none">
+          <ion-icon name="person" slot="start"></ion-icon>
           <ion-label position="stacked">Nombre de Usuario</ion-label>
           <ion-input
             [(ngModel)]="nombre_usuario"
@@ -32,11 +43,13 @@
         </ion-item>
 
         <ion-item lines="none">
+          <ion-icon name="mail" slot="start"></ion-icon>
           <ion-label position="stacked">Email</ion-label>
           <ion-input [(ngModel)]="email" readonly></ion-input>
         </ion-item>
 
         <ion-item lines="none">
+          <ion-icon name="card" slot="start"></ion-icon>
           <ion-label position="stacked">DNI</ion-label>
           <ion-input
             [(ngModel)]="dni"
@@ -52,12 +65,23 @@
         </ion-item>
 
         <ion-item lines="none">
+          <ion-icon name="location" slot="start"></ion-icon>
           <ion-label position="stacked">Ubicación</ion-label>
           <ion-input
             [(ngModel)]="ubicacion"
             [readonly]="!editarActivo"
             placeholder="Ciudad o zona"
           ></ion-input>
+        </ion-item>
+
+        <!-- Toggle de Dark Mode -->
+        <ion-item lines="none">
+          <ion-icon name="moon" slot="start"></ion-icon>
+          <ion-label>Modo Oscuro</ion-label>
+          <ion-toggle 
+            [checked]="themeService.isDarkMode()" 
+            (ionChange)="themeService.toggleDarkMode()"
+          ></ion-toggle>
         </ion-item>
       </div>
 
